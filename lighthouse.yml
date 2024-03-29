@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  beacon:
+    image: sigp/lighthouse:v4.6.0
+    command:
+      - lighthouse
+      - beacon_node
+      - --debug-level=info
+      - --datadir=/consensus-data
+      - --testnet-dir=/el-cl-genesis-data/custom_config_data
+      - --listen-address=0.0.0.0
+      - --port=10000
+      - --http
+      - --http-address=0.0.0.0
+      - --http-port=5052
+      - --http-allow-sync-stalled
+      - --execution-endpoints=http://host.docker.internal:8551
+      - --jwt-secrets=/jwtsecret
+      - --suggested-fee-recipient=0x6D39C4E60dEf1DfC6d09A8FdB5D075e85F0e5F8d
+      - --metrics
+      - --metrics-address=0.0.0.0
+      - --metrics-allow-origin=*
+      - --metrics-port=5054
+      - --trusted-peers=16Uiu2HAm1qr9LmdBqm6r6Br74MkfHLVCktnfRpJu4Rn84c49fXQo,16Uiu2HAmFktvcYffS28trWjiMeHDKnBwJM99bQCF4bcHVGv72J9b,16Uiu2HAmL2tDxijQNb6npoUzL8ibUPxbuPTUdqgi86JaWY6tCXUS,16Uiu2HAmMZvX2pnFJXbx6wxq56LA1EhbUobah5cXooSW6jZUAXPf,16Uiu2HAmM9JvzfTxdxNBHQ3RvaAr8NopJFBJe2mPy4hZZXiua8DG
+      - --boot-nodes=enr:-Ma4QBf7nxlJAswqXf4ufpcMzMj6B4xSMMdEaC7YbrFLu298epoxp4buUxN3Fi4fND8hLObUSfMAvbBh_nKreF98b_OCArOHYXR0bmV0c4j__________4RldGgykOj2yc1QAAAB__________-CaWSCdjSCaXCEJRsMXIRxdWljgiMpiXNlY3AyNTZrMaECX1eN3Omc7bE7TBXNim1p-GHVf6GWs5Jno1P0dT0sRiyIc3luY25ldHMPg3RjcIIjKIN1ZHCCIyg,enr:-MK4QKKiPq0aU-gpMxYjiDqp2TgDPEf3pHWH9oodVTtaNza2BDds63TvyumU05qAvf_zikpPTbSNtbhj-vKZOlSjw8eGAY34Vs6xh2F0dG5ldHOIAAAAAAAAAwCEZXRoMpDo9snNUAAAAf__________gmlkgnY0gmlwhE4uWz2Jc2VjcDI1NmsxoQMuFmk68q6K9SS9thPBdRE9im5wU355bnV1WukeuDJlvohzeW5jbmV0cw-DdGNwgjLIg3VkcIIu4A,enr:-Ma4QFvAXY06EOf8AWoX_mGrmqaDaG1oYA1A4gjLe2csAJbdF6tQrRrdTaK8kJxs_aC1zEkooi0cLjfo6F1cEhgXhhmCAz2HYXR0bmV0c4j__________4RldGgykOj2yc1QAAAB__________-CaWSCdjSCaXCEdMqskYRxdWljgicRiXNlY3AyNTZrMaEDbZ2owRsEl0nVuwx5l_20rwiBpAXS5D8Gm7pgnSHX37eIc3luY25ldHMPg3RjcIInEIN1ZHCCJxA,enr:-MK4QEaxCnGV4I1g6hAJUSiPTaI2tYELmuKnSg0n6dKIPf7ydfdRuboAOrPDh2VppQ0arKsJZXyeHrRc-5yoDAjfP9-GAY3obvpGh2F0dG5ldHOIAAAAAAADAACEZXRoMpDo9snNUAAAAf__________gmlkgnY0gmlwhCUbJceJc2VjcDI1NmsxoQOEbPIGAM1Gx2wDCMMtA-qzapeGfE_ITbTe3lRHy7Z5cohzeW5jbmV0cw-DdGNwgjLIg3VkcIIu4A,enr:-Ly4QJJS_NNVjQSygqJfW3cogX9E5kGq79tBsIqncPka5s6HU1VEdIt9pNNN5JO6m2DBQSTo2YU-LfibFfEW52ZeIWgzh2F0dG5ldHOI__________-EZXRoMpDo9snNUAAAAf__________gmlkgnY0gmlwhF_Z6bqJc2VjcDI1NmsxoQN-HsSPCvs2M1tRBXGldDgC2b_kw2vTez2tsXVOVYCjS4hzeW5jbmV0cw-DdGNwgiyIg3VkcIIsiA
+      - --checkpoint-sync-url=http://78.46.91.61:9781
+      - --subscribe-all-subnets
+      - --import-all-attestations
+    volumes:
+      - ./consensus-data:/consensus-data 
+      - ./el-cl-genesis-data:/el-cl-genesis-data
+      - ./el-cl-genesis-data/jwt/jwtsecret:/jwtsecret
+    ports:
+      - "10000:10000/tcp"
+      - "10000:10000/udp"
+      - "10001:10001/udp"
+      - "5052:5052"
+      - "5054:5054"
+    restart: unless-stopped

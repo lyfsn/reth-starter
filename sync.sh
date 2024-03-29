@@ -1,0 +1,1 @@
+curl --location --request GET 'http://127.0.0.1:5052/eth/v1/node/syncing'
