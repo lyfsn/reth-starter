@@ -3,7 +3,7 @@ reth \
   -vvv \
   --full \
   --datadir=./execution-data \
-  --chain=./el-cl-genesis-data/custom_config_data/genesis.json \
+  --chain=./el-cl-genesis-data/custom_config_data/genesis_noalloc.json \
   --addr=0.0.0.0 \
   --port=30303 \
   --discovery.port=30303 \
